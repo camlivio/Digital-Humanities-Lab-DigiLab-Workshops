@@ -20,8 +20,8 @@ library(readr)
 library(tidyverse)
 library(dplyr)
 
-job_sal <- read_csv("/Users/camilalivio/Desktop/Digi_Workshops/ds_salaries.csv") #for Mac users 
-#job_sal <- read_csv("C:\\Users\\camilalivio\\Desktop\\Digi_Workshops\\ds_salaries.csv") #for Windows users
+job_sal <- read_csv("/XXXXXX/XXXXXX/Desktop/Digi_Workshops/ds_salaries.csv") #for Mac users 
+#job_sal <- read_csv("C:\\XXXXX\\XXXXX\\Desktop\\Digi_Workshops\\ds_salaries.csv") #for Windows users
 
 #R, could you please read in the .csv file on my Desktop and store it under the name "job_sal"?
 
