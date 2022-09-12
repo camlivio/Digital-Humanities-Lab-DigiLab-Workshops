@@ -2,6 +2,7 @@
 #### R for Data Science 
 #### Dr. Katie Ireland & Camila Lívio 
 
+sessionInfo()
 getwd()
 
 ##DATA
@@ -20,7 +21,9 @@ library(tidyverse)
 library(dplyr)
 
 job_sal <- read_csv("/Users/camilalivio/Desktop/Digi_Workshops/ds_salaries.csv") #for Mac users 
-job_sal <- read_csv("C:\\Users\\camilalivio\\Desktop\\Digi_Workshops\\ds_salaries.csv") #for Windows users
+#job_sal <- read_csv("C:\\Users\\camilalivio\\Desktop\\Digi_Workshops\\ds_salaries.csv") #for Windows users
+
+#R, could you please read in the .csv file on my Desktop and store it under the name "job_sal"?
 
 ##Mac users should use single forward slashes
 ##Windows users have to use double back slashes
@@ -35,12 +38,13 @@ glimpse(job_sal)
 #12 cols 
 
 summary(job_sal)
+## for each variable, the summary() function gives you a summary of the values in the variable
 
 ### what are the variables in this data set?
 colnames(job_sal)
 
 unique(job_sal$salary_in_usd)
-unique(job_sal$experience_level)
+unique(job_sal$employment_type)
 ##hard to make sense of the numbers 
 
 range(job_sal$salary_in_usd)
@@ -56,9 +60,7 @@ glimpse(job_sal)
 ### the relationships between these numbers and variables 
 ### example:
 ### How does the *experience level* relate with the variable *salary*? 
-### Are remote employees making more/less money than in-house employers? 
-
-#Note: "HARK-ing (or hypothesizing after results are known)" (Gawne and Styles 2022: 17)
+### Are remote employees making more/less money than in-house employees? 
 
 ### Getting the know these relationships will give us knowledge about the data set 
 ### + generate hypothesis and questions that will/may lead to forecasts about it 
@@ -82,7 +84,7 @@ job_sal %>%
   count(salary_in_usd)
 
 job_sal %>% 
-  count(salary_in_usd, experience_level)
+  count(salary_in_usd, experience_level) 
 
 ##What happened here?
 
@@ -100,6 +102,7 @@ ggplot(data = job_sal) +
   geom_point(mapping = aes(x =experience_level, y = salary_in_usd ))
 
 ##What do y'all think? 
+## let's make a couple of changes 
 
 ggplot(data = job_sal) + 
   geom_point(mapping = aes(x = experience_level, y = salary_in_usd, color = experience_level))
@@ -107,17 +110,27 @@ ggplot(data = job_sal) +
 ####################################################################################################
 ###combining the numbers and the viz
 
-job_sal %>%
-  ggplot(aes(x = salary_in_usd, y = employment_type,
-             color = company_size,
-             group = company_size)) +
+nice_plot <- job_sal %>%
+  ggplot(aes(x = salary_in_usd, y = experience_level,
+             color = employment_type)) +
   geom_jitter() 
+
+### nice! but what do these numbers on the x axis really mean?
+
+nice_plot + scale_x_continuous(labels = scales::comma)
+
+#to omit the use of exponential formatting on one of the axes in a ggplot: 
+#"Add scale_*_continuous(labels = scales::comma) with * being replaced by the axis you want to change 
+#(e.g. scale_x_continuous())." 
+#https://community.rstudio.com/t/how-to-turn-off-scientific-notation-like-1e-09-in-r/71575
 
 ### Some ***excellent*** resources:
 #https://r4ds.had.co.nz (R for Data Science)
 #https://d1b10bmlvqabco.cloudfront.net/attach/ighbo26t3ua52t/igp9099yy4v10/igz7vp4w5su9/OReilly_HandsOn_Programming_with_R_2014.pdf
 #https://adrianapicoral.com (Dr. Adriana Picoral)
 #https://joeystanley.com (Dr. Joey Stanley)
+
+
 
 
 
